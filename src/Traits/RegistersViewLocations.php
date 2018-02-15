@@ -31,7 +31,7 @@ trait RegistersViewLocations
     {
         $current         = $this->where('slug', $this->getCurrent())->first();
         $currentLocation = config('themes.paths.absolute').'/'.$current->get('slug').'/views';
-        app('view.finder')->removeLocation($themeLocation);
+        app('view.finder')->removeLocation($currentLocation);
         
         if ($current->has('parent')) {
             $parent         = $this->where('slug', $current->get('parent'))->first();
