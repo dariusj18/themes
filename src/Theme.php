@@ -26,15 +26,22 @@ class Theme extends Collection
      */
     public function set($theme)
     {
-        list($theme, $parent) = $this->resolveTheme($theme);
-        
-        if (! $this->isCurrent($theme->get('slug')) and (! is_null($this->getCurrent()))) {
-            $this->removeRegisteredLocation($theme, $parent);
+        if (!isset($theme)) {
+            if (!is_null($this->getCurrent())) {
+                $this->removeRegisteredLocation($theme);
+                $this->setCurrent(null);
+            }
+        } else {
+            list($theme, $parent) = $this->resolveTheme($theme);
+            
+            if (! $this->isCurrent($theme->get('slug')) and (! is_null($this->getCurrent()))) {
+                $this->removeRegisteredLocation($theme, $parent);
+            }
+            
+            $this->addRegisteredLocation($theme, $parent);
+            
+            $this->setCurrent($theme->get('slug'));
         }
-        
-        $this->addRegisteredLocation($theme, $parent);
-        
-        $this->setCurrent($theme->get('slug'));
     }
     
     /**
