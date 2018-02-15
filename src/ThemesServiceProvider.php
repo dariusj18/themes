@@ -26,6 +26,11 @@ class ThemesServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__.'/../config/themes.php' => config_path('themes.php')
 		]);
+
+		$default_theme = config('themes.active');
+		if (isset($default_theme)) {
+			$this->app->make('caffeinated.themes')->set($default_theme);
+		}
 	}
 
 	/**
