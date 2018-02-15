@@ -16,7 +16,7 @@ class ThemeViewFinder extends FileViewFinder
     {
         $key = array_search($location, $this->paths);
         
-        if ($key) {
+        if (isset($key)) {
             unset($this->paths[$key]);
         }
     }
